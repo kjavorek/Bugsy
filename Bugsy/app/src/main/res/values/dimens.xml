@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="list_margin">10sp</dimen>
     <dimen name="item_padding">5sp</dimen>
+    <dimen name="spinner">12sp</dimen>
+    <dimen name="spinner_dropdown">4sp</dimen>
+    <dimen name="spinner_padding">15sp</dimen>
 </resources>

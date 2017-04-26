@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:padding="@dimen/spinner_padding" />
 
     <ListView android:id="@+id/mylistview"
         android:layout_marginTop="@dimen/list_margin"
         android:layout_marginLeft="@dimen/list_margin"
         android:layout_marginRight="@dimen/list_margin"
+        android:layout_below="@id/spinner"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     </ListView>
 
-</LinearLayout>
+</RelativeLayout>
