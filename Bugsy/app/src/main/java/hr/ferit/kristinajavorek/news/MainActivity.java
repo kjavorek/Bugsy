@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
                     selected = spinner.getSelectedItem().toString();
                     adapt_obj.changeCategory(selected);
                     adapt_obj.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(),selected,Toast.LENGTH_LONG).show();
+                    listcomp.setAdapter(adapt_obj);
                 }
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     return;

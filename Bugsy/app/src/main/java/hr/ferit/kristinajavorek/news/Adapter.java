@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -67,46 +68,40 @@ public class Adapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("OVDJE_SAM",selected);
-        MyHolder holder=new MyHolder();
-        if(convertView == null)
-        {
-            convertView=inflation.inflate(R.layout.item, null);
+        if(category_array[position].equals(selected) || selected.equals("All")) {
+            MyHolder holder = new MyHolder();
+            if (convertView == null) {
+                convertView = inflation.inflate(R.layout.item, null);
+                holder.tv = (TextView) convertView.findViewById(R.id.mytextview);
+                holder.pubDate = (TextView) convertView.findViewById(R.id.date);
+                holder.iv = (ImageView) convertView.findViewById(R.id.myimgview);
+            } else {
+                holder.tv = (TextView) convertView.findViewById(R.id.mytextview);
+                holder.pubDate = (TextView) convertView.findViewById(R.id.date);
+                holder.iv = (ImageView) convertView.findViewById(R.id.myimgview);
+            }
 
-            holder.tv=(TextView)convertView.findViewById(R.id.mytextview);
-            holder.pubDate=(TextView)convertView.findViewById(R.id.date);
-            holder.iv=(ImageView)convertView.findViewById(R.id.myimgview);
+            holder.tv.setText(title_array[position]);
+            String dateString = pubDate_array[position];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");
+            Date convertedDate = new Date();
+            try {
+                convertedDate = dateFormat.parse(dateString);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+                String sDate = sdf.format(convertedDate);
+                holder.pubDate.setText(sDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
+            try {
+                String temp = image_array[position];
+                InputStream is = new java.net.URL(temp).openStream();
+                Bitmap b = BitmapFactory.decodeStream(is);
+                holder.iv.setImageBitmap(b);
+            } catch (Exception e) {
+            }
         }
-        else
-        {
-            holder.tv=(TextView)convertView.findViewById(R.id.mytextview);
-            holder.pubDate=(TextView)convertView.findViewById(R.id.date);
-            holder.iv=(ImageView)convertView.findViewById(R.id.myimgview);
-
-        }
-
-        holder.tv.setText(title_array[position]);
-        String dateString = pubDate_array[position];
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormat.parse(dateString);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-            String sDate=sdf.format(convertedDate);
-            holder.pubDate.setText(sDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            String temp=image_array[position];
-            InputStream is= new java.net.URL(temp).openStream();
-            Bitmap b=BitmapFactory.decodeStream(is);
-            holder.iv.setImageBitmap(b);
-        }
-        catch(Exception e){}
-
         return convertView;
     }
 
