@@ -9,15 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
-        android:padding="@dimen/spinner_padding" />
+        android:padding="@dimen/spinner_padding"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_below="@id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ListView android:id="@+id/mylistview"
         android:layout_marginTop="@dimen/list_margin"
         android:layout_marginLeft="@dimen/list_margin"
         android:layout_marginRight="@dimen/list_margin"
-        android:layout_below="@id/spinner"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     </ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

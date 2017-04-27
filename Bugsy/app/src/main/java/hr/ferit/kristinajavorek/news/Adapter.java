@@ -38,6 +38,7 @@ public class Adapter extends BaseAdapter {
     String[] title_array=null,image_array=null, category_array=null, pubDate_array=null, link_array=null;
     String selected="All";
     Bitmap b;
+    int br;
 
     Adapter(Context c,String url)
     {
@@ -92,6 +93,7 @@ public class Adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(category_array[position].equals(selected) || selected.equals("All")) {
             MyHolder holder = new MyHolder();
+            convertView=null;
             if (convertView == null) {
                 convertView = inflation.inflate(R.layout.item, null);
                 holder.tv = (TextView) convertView.findViewById(R.id.mytextview);
@@ -102,10 +104,9 @@ public class Adapter extends BaseAdapter {
                 holder.pubDate = (TextView) convertView.findViewById(R.id.date);
                 holder.iv = (ImageView) convertView.findViewById(R.id.myimgview);
             }
-
             holder.tv.setText(title_array[position]);
             String dateString = pubDate_array[position];
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss 'GMT'");
             Date convertedDate = new Date();
             try {
                 convertedDate = dateFormat.parse(dateString);
