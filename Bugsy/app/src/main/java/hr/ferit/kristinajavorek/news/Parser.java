@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -50,22 +51,29 @@ public class Parser {
 
         for (int i = 0; i < nodeList.getLength(); i++)
         {
-            Node node = nodeList.item(i);
 
-            NodeList titleList = node.getChildNodes();
+                Node node = nodeList.item(i);
+                NodeList titleList = node.getChildNodes();
 
-            for(int j=0;j<titleList.getLength();j++)
-            {
-                Node node1= titleList.item(j);
-                String name = node1.getNodeName();
+                for (int j = 0; j < titleList.getLength(); j++) {
 
-                if (name.equalsIgnoreCase(parseelemnt)) {
-                    temp[i]=node1.getFirstChild()
-                            .getNodeValue();
+                    Element e = (Element) titleList.item(j);
+                    if (e.getNodeName().contains("enclosure") && e.hasAttributes() && parseelemnt.equals("enclosure")) {
+                        String urlImg = e.getAttribute("url").toString();
+                        temp[i] = urlImg;
+                        Log.d("URL", urlImg);
+                    } else {
+                        Node node1 = titleList.item(j);
+                        String name = node1.getNodeName();
 
-                    Log.d("temp value",temp[i]);
+                        if (name.equalsIgnoreCase(parseelemnt)) {
+                            temp[i] = node1.getFirstChild()
+                                    .getNodeValue();
+
+                            Log.d("temp value", temp[i]);
+                        }
+                    }
                 }
-            }
         }
         return(temp);
     }

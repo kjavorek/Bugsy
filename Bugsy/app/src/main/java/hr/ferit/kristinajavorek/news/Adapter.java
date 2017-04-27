@@ -1,7 +1,10 @@
 package hr.ferit.kristinajavorek.news;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,15 +13,19 @@ import java.util.Date;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.koushikdutta.ion.Ion;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +37,7 @@ public class Adapter extends BaseAdapter {
     Parser myparseobj=null;
     String[] title_array=null,image_array=null, category_array=null, pubDate_array=null, link_array=null;
     String selected="All";
+    Bitmap b;
 
     Adapter(Context c,String url)
     {
@@ -39,7 +47,7 @@ public class Adapter extends BaseAdapter {
         myparseobj=new Parser();
         title_array=myparseobj.xmlParsing(url,"item","title");
         pubDate_array=myparseobj.xmlParsing(url,"item","pubDate");
-        image_array=myparseobj.xmlParsing(url," item ","image");
+        image_array=myparseobj.xmlParsing(url,"item","enclosure");
         link_array=myparseobj.xmlParsing(url,"item","link");
         category_array=myparseobj.xmlParsing(url,"item","category");
     }
@@ -101,20 +109,17 @@ public class Adapter extends BaseAdapter {
             Date convertedDate = new Date();
             try {
                 convertedDate = dateFormat.parse(dateString);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm'h'");
                 String sDate = sdf.format(convertedDate);
                 holder.pubDate.setText(sDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            try {
-                String temp = image_array[position];
-                InputStream is = new java.net.URL(temp).openStream();
-                Bitmap b = BitmapFactory.decodeStream(is);
-                holder.iv.setImageBitmap(b);
-            } catch (Exception e) {
-            }
+            String imgUrl=image_array[position];
+            Ion.with(holder.iv)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
+                .load(imgUrl);
         }
         return convertView;
     }

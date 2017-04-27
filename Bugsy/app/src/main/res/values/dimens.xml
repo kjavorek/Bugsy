@@ -7,4 +7,7 @@
     <dimen name="spinner">12sp</dimen>
     <dimen name="spinner_dropdown">4sp</dimen>
     <dimen name="spinner_padding">15sp</dimen>
+    <dimen name="iv_width">80sp</dimen>
+    <dimen name="iv_height">60sp</dimen>
+    <dimen name="iv_right_margin">5sp</dimen>
 </resources>

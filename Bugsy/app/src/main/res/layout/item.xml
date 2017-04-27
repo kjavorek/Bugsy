@@ -6,8 +6,10 @@
     android:padding="@dimen/item_padding">
 
     <ImageView android:id="@+id/myimgview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="@dimen/iv_width"
+        android:layout_height="@dimen/iv_height"
+        android:layout_marginRight="@dimen/iv_right_margin"
+        android:scaleType="fitXY"/>
 
     <TextView android:id="@+id/mytextview"
         android:layout_toRightOf="@+id/myimgview"
@@ -17,6 +19,7 @@
     <TextView android:id="@+id/date"
         android:layout_below="@+id/mytextview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/myimgview"/>
 
 </RelativeLayout>

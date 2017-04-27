@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
     Spinner spinner;
     String[] spinnerCategory;
     ArrayAdapter<String> adapter;
-    String selected;
+    String selected, previous="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-             adapt_obj=new Adapter(myref,"http://www.bug.hr/rss/vijesti/");
+            adapt_obj=new Adapter(myref,"http://www.bug.hr/rss/vijesti/");
             return null;
         }
 
@@ -88,9 +88,13 @@ public class MainActivity extends Activity {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     selected = spinner.getSelectedItem().toString();
-                    adapt_obj.changeCategory(selected);
-                    adapt_obj.notifyDataSetChanged();
-                    listcomp.setAdapter(adapt_obj);
+                    if(selected.equals(previous)){return;}
+                    else {
+                        previous=selected;
+                        adapt_obj.changeCategory(selected);
+                        adapt_obj.notifyDataSetChanged();
+                        listcomp.setAdapter(adapt_obj);
+                    }
                 }
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     return;
