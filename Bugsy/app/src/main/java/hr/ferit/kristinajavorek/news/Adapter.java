@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Context;
@@ -60,6 +61,19 @@ public class Adapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public String getLink(int position){
+        ArrayList<Integer> itemPosition = new ArrayList<Integer>();
+        if(selected.equals("All")) return link_array[position];
+        else {
+            for (int i = 0; i < category_array.length; i++) {
+                if(selected.equals(category_array[i])) {
+                    itemPosition.add(i);
+                }
+            }
+            return link_array[itemPosition.get(position)];
+        }
     }
 
     public void changeCategory(String category){

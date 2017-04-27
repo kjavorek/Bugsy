@@ -1,6 +1,8 @@
 package hr.ferit.kristinajavorek.news;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -94,6 +96,19 @@ public class MainActivity extends Activity {
                     return;
                 }
             });
+
+            listcomp.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    listcomp.setAdapter(adapt_obj);
+                    view.getResources();
+                    String link = adapt_obj.getLink(position);
+                    Uri uri = Uri.parse(link);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
+
             spinner.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
